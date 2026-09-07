@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+<title>Amarachi &amp; Divine</title>
+<style>
+  :root { --rose:#B5495B; --ink:#2E1F27; --gold:#C9A66B; --blush:#F6E9E4; --cream:#FBF6F1; --mute:#8A7268; --line:#E4D3C8; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:var(--cream); font-family: Georgia, 'Iowan Old Style', serif; color:var(--ink); }
+  .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  input, textarea, button { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  .amdi-script { font-family: Georgia, 'Iowan Old Style', serif; font-style: italic; }
+  button { cursor:pointer; border:none; background:none; font:inherit; color:inherit; }
+  input, textarea { font-size: inherit; }
+
+  .min-h-screen { min-height:100vh; }
+  .pb-28 { padding-bottom:7rem; }
+  .pb-6 { padding-bottom:1.5rem; }
+  .pt-8 { padding-top:2rem; }
+  .px-2 { padding-left:.5rem; padding-right:.5rem; }
+  .px-3 { padding-left:.75rem; padding-right:.75rem; }
+  .px-4 { padding-left:1rem; padding-right:1rem; }
+  .px-5 { padding-left:1.25rem; padding-right:1.25rem; }
+  .py-1\.5 { padding-top:.375rem; padding-bottom:.375rem; }
+  .py-2 { padding-top:.5rem; padding-bottom:.5rem; }
+  .py-2\.5 { padding-top:.625rem; padding-bottom:.625rem; }
+  .py-3 { padding-top:.75rem; padding-bottom:.75rem; }
+  .p-1\.5 { padding:.375rem; }
+  .p-2 { padding:.5rem; }
+  .p-3 { padding:.75rem; }
+  .p-4 { padding:1rem; }
+  .p-5 { padding:1.25rem; }
+  .mb-1 { margin-bottom:.25rem; }
+  .mb-2 { margin-bottom:.5rem; }
+  .mb-3 { margin-bottom:.75rem; }
+  .mb-4 { margin-bottom:1rem; }
+  .mb-8 { margin-bottom:2rem; }
+  .mt-0\.5 { margin-top:.125rem; }
+  .mt-1 { margin-top:.25rem; }
+  .mt-2 { margin-top:.5rem; }
+  .mt-3 { margin-top:.75rem; }
+  .mt-4 { margin-top:1rem; }
+  .flex { display:flex; }
+  .grid { display:grid; }
+  .grid-cols-5 { grid-template-columns:repeat(5,minmax(0,1fr)); }
+  .flex-1 { flex:1 1 0%; }
+  .flex-col { flex-direction:column; }
+  .flex-wrap { flex-wrap:wrap; }
+  .items-center { align-items:center; }
+  .items-start { align-items:flex-start; }
+  .justify-between { justify-content:space-between; }
+  .justify-center { justify-content:center; }
+  .justify-end { justify-content:flex-end; }
+  .justify-start { justify-content:flex-start; }
+  .gap-0\.5 { gap:.125rem; }
+  .gap-1 { gap:.25rem; }
+  .gap-2 { gap:.5rem; }
+  .gap-3 { gap:.75rem; }
+  .space-y-2 > * + * { margin-top:.5rem; }
+  .space-y-3 > * + * { margin-top:.75rem; }
+  .rounded-full { border-radius:9999px; }
+  .rounded-xl { border-radius:12px; }
+  .rounded-2xl { border-radius:16px; }
+  .border { border:1px solid var(--line); }
+  .border-2 { border:2px solid var(--line); }
+  .border-t { border-top:1px solid var(--line); }
+  .bg-white { background:#fff; }
+  .bg-white\/95 { background:rgba(255,255,255,.95); }
+  .backdrop-blur { backdrop-filter: blur(8px); }
+  .w-6 { width:1.5rem; }
+  .h-6 { height:1.5rem; }
+  .w-full { width:100%; }
+  .shrink-0 { flex-shrink:0; }
+  .text-xs { font-size:.75rem; }
+  .text-sm { font-size:.875rem; }
+  .text-xl { font-size:1.25rem; }
+  .text-2xl { font-size:1.5rem; }
+  .text-4xl { font-size:2.25rem; }
+  .text-center { text-align:center; }
+  .italic { font-style:italic; }
+  .underline { text-decoration:underline; }
+  .leading-relaxed { line-height:1.625; }
+  .font-serif { font-family: Georgia, 'Iowan Old Style', serif; }
+  .cursor-pointer { cursor:pointer; }
+  .select-none { user-select:none; }
+  .outline-none { outline:none; }
+  .resize-none { resize:none; }
+  .transition-colors { transition: background-color .15s ease, color .15s ease; }
+  .fixed { position:fixed; }
+  .sticky { position:sticky; }
+  .bottom-0 { bottom:0; }
+  .bottom-4 { bottom:1rem; }
+  .left-0 { left:0; }
+  .right-0 { right:0; }
+  .block { display:block; }
+  .hover-fade:hover { background: rgba(0,0,0,.05); }
+  .animate-pulse { animation: amdi-pulse 1.4s ease-in-out infinite; }
+  @keyframes amdi-pulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
+
+  .icon-btn:hover { background: rgba(0,0,0,.05); }
+  ::placeholder { color:#B7A79C; opacity:1; }
+</style>
+</head>
+<body>
+<div id="root">
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#B5495B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-pulse">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ============================================================
+  // No build step, no framework, no CDN. Everything below is
+  // plain JavaScript rendering plain HTML strings. Data is saved
+  // to this browser's localStorage.
+  // ============================================================
+
+  var ROSE = "#B5495B", INK = "#2E1F27", GOLD = "#C9A66B", BLUSH = "#F6E9E4", CREAM = "#FBF6F1", MUTE = "#8A7268", LINE = "#E4D3C8";
+  var WEEKDAYS = ["SU","MO","TU","WE","TH","FR","SA"];
+  var WEEKDAY_LABEL = { SU:"Sun", MO:"Mon", TU:"Tue", WE:"Wed", TH:"Thu", FR:"Fri", SA:"Sat" };
+  var MOTIVATION = [
+    "She's waiting on the other side of your discipline. Get up.",
+    "Every rep, every hour of work — it's a brick in the life you're building for her.",
+    "She's beautiful and she's yours. Be the man worth that.",
+    "Broke and undisciplined isn't the plan. Built and steady is.",
+    "You don't grind for applause. You grind so she never has to worry.",
+    "One more set. One more hour of focus. She deserves the best version of you.",
+    "The man she needs is built in the quiet reps nobody sees.",
+    "Get sharp, get strong, get paid — then come home and hold her."
+  ];
+  var TABS = [
+    { id: "today", label: "Today", icon: "heart" },
+    { id: "cycle", label: "Cycle", icon: "calendar" },
+    { id: "wishlist", label: "Wishlist", icon: "gift" },
+    { id: "dates", label: "Dates", icon: "mapPin" },
+    { id: "notes", label: "Her", icon: "handHeart" },
+    { id: "promises", label: "Promises", icon: "check" },
+    { id: "letters", label: "Letters", icon: "mail" },
+    { id: "growth", label: "Myself", icon: "dumbbell" },
+    { id: "ask", label: "Ask", icon: "message" }
+  ];
+
+  // ---------- tiny inline icon set ----------
+  function icon(name, opts) {
+    opts = opts || {};
+    var size = opts.size || 16, color = opts.color || "currentColor", fill = opts.fill || "none", extraStyle = opts.style || "";
+    var inner = {
+      heart: '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>',
+      handHeart: '<path d="M12 21s-6-4.35-9-9.5C1 7 3 4 6 4c2 0 4 1.5 6 4 2-2.5 4-4 6-4 3 0 5 3 3 7.5-3 5.15-9 9.5-9 9.5z"/>',
+      droplet: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.32 0z"/>',
+      calendar: '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+      gift: '<polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>',
+      mapPin: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+      thumbsUp: '<path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>',
+      thumbsDown: '<path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"/>',
+      mail: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
+      dumbbell: '<circle cx="6" cy="12" r="3"/><circle cx="18" cy="12" r="3"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="3" y1="9" x2="3" y2="15"/><line x1="21" y1="9" x2="21" y2="15"/>',
+      trendingUp: '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>',
+      check: '<polyline points="20 6 9 17 4 12"/>',
+      plus: '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
+      x: '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+      trash: '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>',
+      eye: '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
+      eyeOff: '<path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a18.5 18.5 0 0 1 5.06-5.94M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>',
+      bell: '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>',
+      bellOff: '<path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M18.63 13A17.89 17.89 0 0 1 18 8"/><path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"/><path d="M18 8a6 6 0 0 0-9.33-5"/><line x1="1" y1="1" x2="23" y2="23"/>',
+      message: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
+      sparkles: '<path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5L12 2z"/><path d="M19 14l.7 2.3L22 17l-2.3.7L19 20l-.7-2.3L16 17l2.3-.7L19 14z"/>',
+      flame: '<path d="M12 23c-3.87 0-7-3.13-7-7 0-3 1.5-5.5 3-8 .5 2 2 3 2 3-1-3 1-6 3-7 0 2 0 4 1 5 1 1 2 2 2 4.5C16 19.5 15.5 23 12 23z"/>'
+    }[name] || "";
+    var fillAttr = (name === "sparkles") ? "currentColor" : fill;
+    return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="' + fillAttr + '" stroke="' + color + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex-shrink:0;' + extraStyle + '">' + inner + "</svg>";
+  }
+
+  // ---------- storage ----------
+  function loadAll() {
+    var keys = ["completions","cycle","wishlist","dates","notes","promises","letters","growth","hairOil","notifSettings"];
+    var out = {};
+    keys.forEach(function (k) {
+      try {
+        var raw = localStorage.getItem("amdi:" + k);
+        out[k] = raw ? JSON.parse(raw) : null;
+      } catch (e) { out[k] = null; }
+    });
+    return out;
+  }
+  function save(key, value) {
+    try { localStorage.setItem("amdi:" + key, JSON.stringify(value)); } catch (e) { console.error(e); }
+  }
+  function getApiKey() { try { return localStorage.getItem("amdi:apiKey") || ""; } catch (e) { return ""; } }
+  function setApiKeyLS(key) { try { localStorage.setItem("amdi:apiKey", key); } catch (e) {} }
+
+  // ---------- date helpers ----------
+  function todayKey(d) { d = d || new Date(); return d.toISOString().slice(0, 10); }
+  function nextScheduledDate(fromDate, days) {
+    if (!days || days.length === 0) return null;
+    var d = new Date(fromDate);
+    for (var i = 0; i < 8; i++) {
+      d.setDate(d.getDate() + (i === 0 ? 0 : 1));
+      if (days.indexOf(WEEKDAYS[d.getDay()]) !== -1) return new Date(d);
+    }
+    return null;
+  }
+  function isScheduledToday(days) { return !!(days && days.indexOf(WEEKDAYS[new Date().getDay()]) !== -1); }
+  function fmt(d) { return d.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" }); }
+  function daysBetween(a, b) { return Math.round((new Date(b).setHours(0,0,0,0) - new Date(a).setHours(0,0,0,0)) / 86400000); }
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  // ---------- state ----------
+  var state = {
+    loaded: false,
+    tab: "today",
+    completions: {},
+    cycle: { lastStart: "", length: 28 },
+    wishlist: [],
+    dates: [],
+    notes: { likes: [], dislikes: [] },
+    promises: [],
+    letters: [],
+    growth: { physique: [], finance: [], streak: 0, lastCheckin: "", pushupsLog: {}, pushupsStreak: 0 },
+    hairOil: { lastOiled: "2026-07-01", days: ["MO","WE","FR"], log: {} },
+    notifSettings: { enabled: false, pushupsTime: "07:00" },
+    revealedItems: {},
+    quote: MOTIVATION[Math.floor(Math.random() * MOTIVATION.length)],
+    chat: [],
+    chatLoading: false
+  };
+  var notified = {};
+
+  function persist(key, value) {
+    state[key] = value;
+    save(key, value);
+  }
+
+  // ---------- notifications ----------
+  function beep() {
+    try {
+      var Ctx = window.AudioContext || window.webkitAudioContext;
+      var ctx = new Ctx();
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = "sine"; o.frequency.value = 720;
+      g.gain.setValueAtTime(0.001, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.15, ctx.currentTime + 0.03);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+      o.start(); o.stop(ctx.currentTime + 0.5);
+    } catch (e) {}
+  }
+  function fireNotification(title, body) {
+    try {
+      if ("Notification" in window && Notification.permission === "granted") new Notification(title, { body: body });
+      beep();
+    } catch (e) {}
+  }
+  var notifTimer = null;
+  function armNotifTimer() {
+    if (notifTimer) clearInterval(notifTimer);
+    if (!state.notifSettings.enabled) return;
+    notifTimer = setInterval(function () {
+      var now = new Date();
+      var hhmm = now.toTimeString().slice(0, 5);
+      var key = todayKey() + "-" + hhmm;
+      if (hhmm === state.notifSettings.pushupsTime && notified[key] !== true) {
+        notified[key] = true;
+        fireNotification("Push-ups", "Time for today's push-ups. Build for her.");
+      }
+      if (isScheduledToday(state.hairOil.days)) {
+        var oilKey = todayKey() + "-oil-09:00";
+        if (hhmm === "09:00" && notified[oilKey] !== true) {
+          notified[oilKey] = true;
+          fireNotification("Oil day", "Today's a hair-oiling day for her.");
+        }
+      }
+    }, 20000);
+  }
+
+  // ---------- actions ----------
+  var actions = {
+    setTab: function (id) { state.tab = id; render(); },
+
+    toggleOilToday: function () {
+      var today = todayKey();
+      var oilDoneToday = !!state.hairOil.log[today];
+      var next = Object.assign({}, state.hairOil, {
+        log: Object.assign({}, state.hairOil.log, mk(today, !oilDoneToday)),
+        lastOiled: !oilDoneToday ? today : state.hairOil.lastOiled
+      });
+      persist("hairOil", next); render();
+    },
+    toggleOilDay: function (day) {
+      var has = state.hairOil.days.indexOf(day) !== -1;
+      var nextDays = has ? state.hairOil.days.filter(function (d) { return d !== day; }) : state.hairOil.days.concat([day]);
+      persist("hairOil", Object.assign({}, state.hairOil, { days: nextDays })); render();
+    },
+    toggleGenericTask: function (id) {
+      var today = todayKey();
+      var rec = Object.assign({}, state.completions[today] || {});
+      rec[id] = !rec[id];
+      var nextCompletions = Object.assign({}, state.completions, mk(today, rec));
+      persist("completions", nextCompletions); render();
+    },
+    setCycleLastStart: function (v) { persist("cycle", Object.assign({}, state.cycle, { lastStart: v })); render(); },
+    setCycleLength: function (v) { persist("cycle", Object.assign({}, state.cycle, { length: Number(v) || 0 })); render(); },
+
+    addWishlistItem: function () {
+      var input = document.getElementById("newItemInput");
+      var val = input ? input.value.trim() : "";
+      if (!val) return;
+      persist("wishlist", state.wishlist.concat([{ id: Date.now(), item: val, bought: false }]));
+      if (input) input.value = "";
+      render();
+    },
+    toggleBought: function (id) {
+      persist("wishlist", state.wishlist.map(function (w) { return w.id === id ? Object.assign({}, w, { bought: !w.bought }) : w; }));
+      render();
+    },
+    removeWishlist: function (id) { persist("wishlist", state.wishlist.filter(function (w) { return w.id !== id; })); render(); },
+    toggleReveal: function (id) { state.revealedItems[id] = !state.revealedItems[id]; render(); },
+
+    addDate: function () {
+      var titleInput = document.getElementById("newDateTitleInput");
+      var dateInput = document.getElementById("newDateDateInput");
+      var title = titleInput ? titleInput.value.trim() : "";
+      var dateVal = dateInput ? dateInput.value : "";
+      if (!title) return;
+      var next = state.dates.concat([{ id: Date.now(), title: title, date: dateVal, done: false }])
+        .sort(function (a, b) { return (a.date || "9999").localeCompare(b.date || "9999"); });
+      persist("dates", next);
+      if (titleInput) titleInput.value = "";
+      if (dateInput) dateInput.value = "";
+      render();
+    },
+    toggleDateDone: function (id) { persist("dates", state.dates.map(function (d) { return d.id === id ? Object.assign({}, d, { done: !d.done }) : d; })); render(); },
+    removeDate: function (id) { persist("dates", state.dates.filter(function (d) { return d.id !== id; })); render(); },
+
+    addLike: function () {
+      var input = document.getElementById("newLikeInput");
+      var val = input ? input.value.trim() : "";
+      if (!val) return;
+      persist("notes", Object.assign({}, state.notes, { likes: state.notes.likes.concat([val]) }));
+      if (input) input.value = "";
+      render();
+    },
+    addDislike: function () {
+      var input = document.getElementById("newDislikeInput");
+      var val = input ? input.value.trim() : "";
+      if (!val) return;
+      persist("notes", Object.assign({}, state.notes, { dislikes: state.notes.dislikes.concat([val]) }));
+      if (input) input.value = "";
+      render();
+    },
+    removeLike: function (i) { persist("notes", Object.assign({}, state.notes, { likes: state.notes.likes.filter(function (_, idx) { return idx !== i; }) })); render(); },
+    removeDislike: function (i) { persist("notes", Object.assign({}, state.notes, { dislikes: state.notes.dislikes.filter(function (_, idx) { return idx !== i; }) })); render(); },
+
+    addPromise: function () {
+      var input = document.getElementById("newPromiseInput");
+      var val = input ? input.value.trim() : "";
+      if (!val) return;
+      persist("promises", state.promises.concat([{ id: Date.now(), text: val, done: false }]));
+      if (input) input.value = "";
+      render();
+    },
+    togglePromise: function (id) { persist("promises", state.promises.map(function (p) { return p.id === id ? Object.assign({}, p, { done: !p.done }) : p; })); render(); },
+    removePromise: function (id) { persist("promises", state.promises.filter(function (p) { return p.id !== id; })); render(); },
+
+    logLetter: function () {
+      var input = document.getElementById("newLetterInput");
+      var val = input ? input.value.trim() : "";
+      persist("letters", [{ id: Date.now(), date: todayKey(), note: val }].concat(state.letters));
+      if (input) input.value = "";
+      render();
+    },
+    removeLetter: function (id) { persist("letters", state.letters.filter(function (l) { return l.id !== id; })); render(); },
+
+    addGrowthGoal: function (category, inputId) {
+      var input = document.getElementById(inputId);
+      var val = input ? input.value.trim() : "";
+      if (!val) return;
+      var next = Object.assign({}, state.growth);
+      next[category] = state.growth[category].concat([{ id: Date.now(), text: val, done: false }]);
+      persist("growth", next);
+      if (input) input.value = "";
+      render();
+    },
+    toggleGrowthGoal: function (category, id) {
+      var next = Object.assign({}, state.growth);
+      next[category] = state.growth[category].map(function (g) { return g.id === id ? Object.assign({}, g, { done: !g.done }) : g; });
+      persist("growth", next); render();
+    },
+    removeGrowthGoal: function (category, id) {
+      var next = Object.assign({}, state.growth);
+      next[category] = state.growth[category].filter(function (g) { return g.id !== id; });
+      persist("growth", next); render();
+    },
+    toggleCheckin: function () {
+      var today = todayKey();
+      var wasToday = state.growth.lastCheckin === today;
+      persist("growth", Object.assign({}, state.growth, {
+        streak: wasToday ? Math.max(0, state.growth.streak - 1) : state.growth.streak + 1,
+        lastCheckin: wasToday ? "" : today
+      }));
+      render();
+    },
+    togglePushups: function () {
+      var today = todayKey();
+      var done = !!state.growth.pushupsLog[today];
+      persist("growth", Object.assign({}, state.growth, {
+        pushupsLog: Object.assign({}, state.growth.pushupsLog, mk(today, !done)),
+        pushupsStreak: Math.max(0, state.growth.pushupsStreak + (done ? -1 : 1))
+      }));
+      render();
+    },
+
+    enableNotifications: function () {
+      var granted = true;
+      function apply(g) {
+        persist("notifSettings", Object.assign({}, state.notifSettings, { enabled: g }));
+        armNotifTimer(); render();
+      }
+      if ("Notification" in window && Notification.permission !== "granted") {
+        Notification.requestPermission().then(function (perm) { apply(perm === "granted"); });
+      } else {
+        apply(granted);
+      }
+    },
+    disableNotifications: function () {
+      persist("notifSettings", Object.assign({}, state.notifSettings, { enabled: false }));
+      armNotifTimer(); render();
+    },
+    setPushupsTime: function (t) {
+      persist("notifSettings", Object.assign({}, state.notifSettings, { pushupsTime: t }));
+      armNotifTimer(); render();
+    },
+
+    changeApiKey: function () {
+      var current = getApiKey();
+      var next = window.prompt(
+        "Paste your Anthropic API key (from console.anthropic.com).\n\nStored only in this browser's local storage, sent only to Anthropic's API. Don't share this file with your key already in it.",
+        current || ""
+      );
+      if (next !== null) setApiKeyLS(next.trim());
+      render();
+    },
+
+    setQuote: function () {
+      state.quote = MOTIVATION[Math.floor(Math.random() * MOTIVATION.length)];
+      render();
+    },
+
+    sendChat: function () {
+      var input = document.getElementById("chatInput");
+      var text = input ? input.value.trim() : "";
+      if (!text || state.chatLoading) return;
+
+      var apiKey = getApiKey();
+      if (!apiKey) {
+        var entered = window.prompt("Paste your Anthropic API key to enable Ask AMDI (from console.anthropic.com).\n\nStored only in this browser's local storage, sent only to Anthropic's API.");
+        if (!entered) return;
+        apiKey = entered.trim();
+        setApiKeyLS(apiKey);
+      }
+
+      state.chat = state.chat.concat([{ role: "user", content: text }]);
+      if (input) input.value = "";
+      state.chatLoading = true;
+      render();
+
+      var context = [
+        'You are the "Ask AMDI" assistant inside a private app Divine built for his girlfriend, Amarachi. Be warm, direct, and practical. Keep answers concise for a phone screen unless asked for more.',
+        "",
+        "What's known (private to Divine):",
+        "- She loves: " + (state.notes.likes.join(", ") || "not noted yet"),
+        "- She dislikes: " + (state.notes.dislikes.join(", ") || "not noted yet"),
+        "- Wishlist ideas: " + (state.wishlist.map(function (w) { return w.item; }).join(", ") || "none yet"),
+        "- Open promises: " + (state.promises.filter(function (p) { return !p.done; }).map(function (p) { return p.text; }).join(", ") || "none pending"),
+        "- She's working on eating earlier and smaller portions, together with him.",
+        "- He oils her hair " + state.hairOil.days.map(function (d) { return WEEKDAY_LABEL[d]; }).join("/") + " and is building his own physique and finances for her."
+      ].join("\n");
+
+      fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": apiKey,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true"
+        },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-6",
+          max_tokens: 1000,
+          system: context,
+          messages: state.chat.map(function (m) { return { role: m.role, content: m.content }; })
+        })
+      }).then(function (res) {
+        return res.json().then(function (data) { return { ok: res.ok, data: data }; });
+      }).then(function (result) {
+        if (!result.ok) {
+          var msg = (result.data && result.data.error && result.data.error.message) || "Request failed.";
+          state.chat = state.chat.concat([{ role: "assistant", content: "Error: " + msg }]);
+        } else {
+          var reply = ((result.data.content || []).map(function (b) { return b.text || ""; }).join("\n").trim()) || "Something went wrong — try again.";
+          state.chat = state.chat.concat([{ role: "assistant", content: reply }]);
+        }
+      }).catch(function () {
+        state.chat = state.chat.concat([{ role: "assistant", content: "Couldn't reach the assistant just now — try again in a moment." }]);
+      }).finally(function () {
+        state.chatLoading = false;
+        render();
+      });
+    }
+  };
+
+  function mk(key, val) { var o = {}; o[key] = val; return o; }
+
+  // expose actions to inline onclick/onchange handlers
+  window.amdi = actions;
+
+  // ---------- render helpers ----------
+  function section(title, subtitle, innerHtml) {
+    return '<div class="mb-8">' +
+      '<h2 class="text-2xl font-serif" style="color:' + INK + '">' + esc(title) + '</h2>' +
+      (subtitle ? '<p class="text-sm mt-1" style="color:' + MUTE + '">' + esc(subtitle) + '</p>' : '') +
+      '<div class="mt-4">' + innerHtml + '</div>' +
+      '</div>';
+  }
+  function iconBtn(onclick, iconHtml, title) {
+    return '<button onclick="' + onclick + '" title="' + (title ? esc(title) : "") + '" class="icon-btn p-2 rounded-full transition-colors" style="color:' + MUTE + '">' + iconHtml + '</button>';
+  }
+  function textRow(inputId, placeholder, submitAction) {
+    return '<form onsubmit="event.preventDefault(); ' + submitAction + '" class="flex gap-2">' +
+      '<input id="' + inputId + '" placeholder="' + esc(placeholder) + '" class="flex-1 rounded-xl px-4 py-2.5 border outline-none text-sm" style="border-color:' + LINE + ';background:#fff;color:' + INK + '" />' +
+      '<button type="submit" class="rounded-xl px-4" style="background:' + ROSE + ';color:#fff;display:flex;align-items:center;justify-content:center;">' + icon("plus", { size: 18, color: "#fff" }) + '</button>' +
+      '</form>';
+  }
+
+  function renderToday() {
+    var today = todayKey();
+    var todaysDone = state.completions[today] || {};
+    var oilToday = isScheduledToday(state.hairOil.days);
+    var oilDoneToday = !!state.hairOil.log[today];
+    var nextOil = oilToday ? new Date() : nextScheduledDate(new Date(), state.hairOil.days);
+
+    var oilRow = '<div class="flex items-center gap-3 rounded-2xl px-4 py-3 border sans" style="background:#fff;border-color:' + LINE + '">' +
+      '<button onclick="amdi.toggleOilToday()" class="w-6 h-6 rounded-full" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid ' + (oilToday ? ROSE : "#D8C4B8") + ';background:' + (oilDoneToday ? ROSE : "transparent") + '">' +
+      (oilDoneToday ? icon("check", { size: 14, color: "#fff" }) : "") + '</button>' +
+      icon("droplet", { size: 16, color: MUTE }) +
+      '<div class="flex-1"><p class="text-sm" style="color:' + INK + ';text-decoration:' + (oilDoneToday ? "line-through" : "none") + ';opacity:' + (oilDoneToday ? 0.5 : 1) + '">Oil her hair</p>' +
+      '<p class="text-xs" style="color:' + MUTE + '">' + (oilToday ? "scheduled for today" : nextOil ? ("next: " + esc(fmt(nextOil))) : "set schedule under Myself") + '</p></div></div>';
+
+    var genericTasks = [{ id: "warm-food", label: "Warm her food before bed" }, { id: "check-off", label: "Check everything is switched off" }];
+    var tasksHtml = genericTasks.map(function (t) {
+      var done = !!todaysDone[t.id];
+      return '<div class="flex items-center gap-3 rounded-2xl px-4 py-3 border sans" style="background:#fff;border-color:' + LINE + '">' +
+        '<button onclick="amdi.toggleGenericTask(\'' + t.id + '\')" class="w-6 h-6 rounded-full" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid ' + ROSE + ';background:' + (done ? ROSE : "transparent") + '">' +
+        (done ? icon("check", { size: 14, color: "#fff" }) : "") + '</button>' +
+        '<span class="flex-1 text-sm" style="color:' + INK + ';text-decoration:' + (done ? "line-through" : "none") + ';opacity:' + (done ? 0.5 : 1) + '">' + esc(t.label) + '</span></div>';
+    }).join("");
+
+    var careSection = section("Today's care", fmt(new Date()), '<div class="space-y-2">' + oilRow + tasksHtml + '</div>');
+    var nudgeSection = section("Sweet nudge", null,
+      '<div class="rounded-2xl p-5" style="background:' + INK + '">' +
+      '<p class="text-sm leading-relaxed" style="color:' + BLUSH + '">' + esc(state.quote) + '</p>' +
+      '<button onclick="amdi.setQuote()" class="mt-3 sans text-xs" style="color:' + GOLD + ';display:flex;align-items:center;gap:.25rem;">' + icon("sparkles", { size: 12, color: GOLD }) + ' another one</button></div>');
+
+    return careSection + nudgeSection;
+  }
+
+  function renderCycle() {
+    var cycle = state.cycle;
+    var nextPeriod = null;
+    if (cycle.lastStart) {
+      var start = new Date(cycle.lastStart + "T00:00:00");
+      nextPeriod = new Date(start);
+      nextPeriod.setDate(nextPeriod.getDate() + Number(cycle.length || 28));
+    }
+    var body = '<div class="rounded-2xl p-4 border bg-white space-y-3" style="border-color:' + LINE + '">' +
+      '<label class="block sans text-xs" style="color:' + MUTE + '">Last period start date</label>' +
+      '<input type="date" value="' + esc(cycle.lastStart) + '" onchange="amdi.setCycleLastStart(this.value)" class="w-full rounded-xl px-3 py-2 border sans text-sm" style="border-color:' + LINE + '" />' +
+      '<label class="block sans text-xs" style="color:' + MUTE + '">Average cycle length (days)</label>' +
+      '<input type="number" value="' + esc(cycle.length) + '" onchange="amdi.setCycleLength(this.value)" class="w-full rounded-xl px-3 py-2 border sans text-sm" style="border-color:' + LINE + '" />' +
+      '</div>';
+    if (nextPeriod) {
+      var diff = daysBetween(new Date(), nextPeriod);
+      body += '<div class="mt-4 rounded-2xl p-5" style="background:' + BLUSH + '">' +
+        '<p class="sans text-xs" style="color:' + MUTE + '">Next expected period</p>' +
+        '<p class="text-xl amdi-script" style="color:' + ROSE + '">' + esc(fmt(nextPeriod)) + '</p>' +
+        '<p class="sans text-sm mt-1" style="color:' + ROSE + '">' + (diff >= 0 ? ("in " + diff + " days") : "may already have started — check in with her") + '</p>' +
+        '<p class="sans text-xs mt-3" style="color:' + MUTE + '">Be extra gentle, keep painkillers &amp; her favorite snack ready.</p></div>';
+    }
+    return section("Her cycle", "So you're never caught off guard", body);
+  }
+
+  function renderWishlist() {
+    var rows = state.wishlist.length === 0
+      ? '<p class="sans text-sm" style="color:' + MUTE + '">Nothing yet — add the first surprise.</p>'
+      : state.wishlist.map(function (w) {
+          var shown = !!state.revealedItems[w.id];
+          return '<div class="flex items-center gap-3 rounded-2xl px-4 py-3 border bg-white sans" style="border-color:' + LINE + '">' +
+            '<button onclick="amdi.toggleBought(' + w.id + ')" class="w-6 h-6 rounded-full" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid ' + GOLD + ';background:' + (w.bought ? GOLD : "transparent") + '">' +
+            (w.bought ? icon("check", { size: 14, color: "#fff" }) : "") + '</button>' +
+            '<span onclick="amdi.toggleReveal(' + w.id + ')" class="flex-1 text-sm cursor-pointer select-none" style="color:' + INK + ';text-decoration:' + (w.bought ? "line-through" : "none") + ';opacity:' + (w.bought ? 0.5 : 1) + ';filter:' + (shown ? "none" : "blur(5px)") + '">' + esc(w.item) + '</span>' +
+            iconBtn("amdi.toggleReveal(" + w.id + ")", shown ? icon("eyeOff", { size: 14 }) : icon("eye", { size: 14 })) +
+            iconBtn("amdi.removeWishlist(" + w.id + ")", icon("trash", { size: 14 })) +
+            '</div>';
+        }).join('<div style="height:.5rem"></div>');
+    return section("Things to get her", "Blurred, in case she picks up your phone",
+      '<div class="space-y-2 mb-3">' + rows + '</div>' + textRow("newItemInput", "Add a surprise", "amdi.addWishlistItem()"));
+  }
+
+  function renderDates() {
+    var rows = state.dates.length === 0
+      ? '<p class="sans text-sm" style="color:' + MUTE + '">No dates planned yet.</p>'
+      : state.dates.map(function (d) {
+          return '<div class="flex items-center gap-3 rounded-2xl px-4 py-3 border bg-white sans" style="border-color:' + LINE + '">' +
+            '<button onclick="amdi.toggleDateDone(' + d.id + ')" class="w-6 h-6 rounded-full" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid ' + ROSE + ';background:' + (d.done ? ROSE : "transparent") + '">' +
+            (d.done ? icon("check", { size: 14, color: "#fff" }) : "") + '</button>' +
+            '<div class="flex-1"><p class="text-sm" style="color:' + INK + ';text-decoration:' + (d.done ? "line-through" : "none") + ';opacity:' + (d.done ? 0.5 : 1) + '">' + esc(d.title) + '</p>' +
+            (d.date ? '<p class="text-xs" style="color:' + MUTE + '">' + esc(d.date) + '</p>' : "") + '</div>' +
+            iconBtn("amdi.removeDate(" + d.id + ")", icon("trash", { size: 14 })) +
+            '</div>';
+        }).join('<div style="height:.5rem"></div>');
+    var addForm = '<div class="rounded-2xl p-3 border bg-white space-y-2" style="border-color:' + LINE + '">' +
+      '<input id="newDateTitleInput" placeholder="Date idea" class="w-full rounded-xl px-3 py-2 border sans text-sm" style="border-color:' + LINE + '" />' +
+      '<input id="newDateDateInput" type="date" class="w-full rounded-xl px-3 py-2 border sans text-sm" style="border-color:' + LINE + '" />' +
+      '<button onclick="amdi.addDate()" class="w-full rounded-xl py-2 sans text-sm" style="background:' + ROSE + ';color:#fff">Add date</button></div>';
+    return section("Date planning", "Keep the romance moving", '<div class="space-y-2 mb-3">' + rows + '</div>' + addForm);
+  }
+
+  function renderNotes() {
+    var likes = state.notes.likes.map(function (l, i) {
+      return '<div class="flex items-center gap-2 rounded-xl px-4 py-2.5 border bg-white sans text-sm" style="border-color:' + LINE + ';color:' + INK + '">' +
+        icon("thumbsUp", { size: 14, color: ROSE }) + '<span class="flex-1">' + esc(l) + '</span>' + iconBtn("amdi.removeLike(" + i + ")", icon("x", { size: 14 })) + '</div>';
+    }).join('<div style="height:.5rem"></div>');
+    var dislikes = state.notes.dislikes.map(function (l, i) {
+      return '<div class="flex items-center gap-2 rounded-xl px-4 py-2.5 border bg-white sans text-sm" style="border-color:' + LINE + ';color:' + INK + '">' +
+        icon("thumbsDown", { size: 14, color: MUTE }) + '<span class="flex-1">' + esc(l) + '</span>' + iconBtn("amdi.removeDislike(" + i + ")", icon("x", { size: 14 })) + '</div>';
+    }).join('<div style="height:.5rem"></div>');
+
+    return section("She loves", "Bare minimum stuff, handwritten letters, eating early together",
+        '<div class="space-y-2 mb-3">' + likes + '</div>' + textRow("newLikeInput", "Something she loves", "amdi.addLike()")) +
+      section("She's not into", null,
+        '<div class="space-y-2 mb-3">' + dislikes + '</div>' + textRow("newDislikeInput", "Something she dislikes", "amdi.addDislike()")) +
+      section("Her food goal", "Eating early, small portions, together with you",
+        '<div class="rounded-2xl p-4" style="background:' + BLUSH + '"><p class="sans text-sm" style="color:' + INK + '">Eat with her early, keep portions small, and warm her food before bed if she eats late — it\'s on your Today list.</p></div>');
+  }
+
+  function renderPromises() {
+    var rows = state.promises.length === 0
+      ? '<p class="sans text-sm" style="color:' + MUTE + '">Nothing pending — add a promise to track it.</p>'
+      : state.promises.map(function (p) {
+          return '<div class="flex items-center gap-3 rounded-2xl px-4 py-3 border bg-white sans" style="border-color:' + LINE + '">' +
+            '<button onclick="amdi.togglePromise(' + p.id + ')" class="w-6 h-6 rounded-full" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid ' + ROSE + ';background:' + (p.done ? ROSE : "transparent") + '">' +
+            (p.done ? icon("check", { size: 14, color: "#fff" }) : "") + '</button>' +
+            '<span class="flex-1 text-sm" style="color:' + INK + ';text-decoration:' + (p.done ? "line-through" : "none") + ';opacity:' + (p.done ? 0.5 : 1) + '">' + esc(p.text) + '</span>' +
+            iconBtn("amdi.removePromise(" + p.id + ")", icon("trash", { size: 14 })) + '</div>';
+        }).join('<div style="height:.5rem"></div>');
+    return section("Promises to her", "What you said you'd do",
+      '<div class="space-y-2 mb-3">' + rows + '</div>' + textRow("newPromiseInput", "What did you promise her?", "amdi.addPromise()"));
+  }
+
+  function renderLetters() {
+    var logForm = '<div class="rounded-2xl p-3 border bg-white space-y-2 mb-4" style="border-color:' + LINE + '">' +
+      '<textarea id="newLetterInput" placeholder="What was this letter about? (optional)" rows="2" class="w-full rounded-xl px-3 py-2 border sans text-sm resize-none" style="border-color:' + LINE + '"></textarea>' +
+      '<button onclick="amdi.logLetter()" class="w-full rounded-xl py-2 sans text-sm" style="background:' + ROSE + ';color:#fff">Log today\'s letter</button></div>';
+    var rows = state.letters.length === 0
+      ? '<p class="sans text-sm" style="color:' + MUTE + '">No letters logged yet.</p>'
+      : state.letters.map(function (l) {
+          return '<div class="flex items-start gap-3 rounded-2xl px-4 py-3 border bg-white sans" style="border-color:' + LINE + '">' +
+            icon("mail", { size: 16, color: ROSE, style: "margin-top:2px" }) +
+            '<div class="flex-1"><p class="text-xs" style="color:' + MUTE + '">' + esc(l.date) + '</p>' + (l.note ? '<p class="text-sm mt-0.5" style="color:' + INK + '">' + esc(l.note) + '</p>' : "") + '</div>' +
+            iconBtn("amdi.removeLetter(" + l.id + ")", icon("trash", { size: 14 })) + '</div>';
+        }).join('<div style="height:.5rem"></div>');
+    return section("Handwritten letters", "Log when you write her one", logForm + '<div class="space-y-2">' + rows + '</div>');
+  }
+
+  function renderGrowth() {
+    var today = todayKey();
+    var pushupsDoneToday = !!state.growth.pushupsLog[today];
+    var lastOiledDaysAgo = state.hairOil.lastOiled ? daysBetween(state.hairOil.lastOiled, new Date()) : null;
+
+    var streakSection = section("Building myself for her", "Physique, money, mind — the man she deserves",
+      '<div class="rounded-2xl p-4 flex items-center justify-between" style="background:' + INK + '">' +
+      '<div><p class="sans text-xs" style="color:' + GOLD + '">discipline streak</p><p class="text-2xl amdi-script" style="color:#fff">' + state.growth.streak + ' days</p></div>' +
+      '<button onclick="amdi.toggleCheckin()" class="rounded-full p-3" style="background:' + (state.growth.lastCheckin === today ? GOLD : "#4a3a44") + '">' + icon("flame", { size: 20, color: "#fff" }) + '</button></div>');
+
+    var pushupsSection = section("Push-ups", null,
+      '<div class="flex items-center gap-3 rounded-2xl px-4 py-3 border bg-white sans" style="border-color:' + LINE + '">' +
+      '<button onclick="amdi.togglePushups()" class="w-6 h-6 rounded-full" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid ' + ROSE + ';background:' + (pushupsDoneToday ? ROSE : "transparent") + '">' +
+      (pushupsDoneToday ? icon("check", { size: 14, color: "#fff" }) : "") + '</button>' + icon("dumbbell", { size: 15, color: MUTE }) +
+      '<div class="flex-1"><p class="text-sm" style="color:' + INK + ';text-decoration:' + (pushupsDoneToday ? "line-through" : "none") + ';opacity:' + (pushupsDoneToday ? 0.5 : 1) + '">Today\'s push-ups</p>' +
+      '<p class="text-xs" style="color:' + MUTE + '">' + state.growth.pushupsStreak + ' day streak</p></div></div>');
+
+    function goalsHtml(category, color) {
+      return state.growth[category].map(function (g) {
+        return '<div class="flex items-center gap-3 rounded-2xl px-4 py-3 border bg-white sans" style="border-color:' + LINE + '">' +
+          '<button onclick="amdi.toggleGrowthGoal(\'' + category + '\',' + g.id + ')" class="w-6 h-6 rounded-full" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid ' + color + ';background:' + (g.done ? color : "transparent") + '">' +
+          (g.done ? icon("check", { size: 14, color: "#fff" }) : "") + '</button>' +
+          (category === "finance" ? icon("trendingUp", { size: 14, color: MUTE }) : "") +
+          '<span class="flex-1 text-sm" style="color:' + INK + ';text-decoration:' + (g.done ? "line-through" : "none") + ';opacity:' + (g.done ? 0.5 : 1) + '">' + esc(g.text) + '</span>' +
+          iconBtn("amdi.removeGrowthGoal('" + category + "'," + g.id + ")", icon("x", { size: 14 })) + '</div>';
+      }).join('<div style="height:.5rem"></div>');
+    }
+    var physiqueSection = section("Physique goals", null,
+      '<div class="space-y-2 mb-3">' + goalsHtml("physique", ROSE) + '</div>' + textRow("newPhysiqueGoalInput", "e.g. gym 5x this week", "amdi.addGrowthGoal('physique','newPhysiqueGoalInput')"));
+    var financeSection = section("Money / intellect goals", null,
+      '<div class="space-y-2 mb-3">' + goalsHtml("finance", GOLD) + '</div>' + textRow("newFinanceGoalInput", "e.g. finish that course, save this month", "amdi.addGrowthGoal('finance','newFinanceGoalInput')"));
+
+    var dayChips = WEEKDAYS.map(function (d) {
+      var on = state.hairOil.days.indexOf(d) !== -1;
+      return '<button onclick="amdi.toggleOilDay(\'' + d + '\')" class="px-3 py-1.5 rounded-full text-xs sans" style="background:' + (on ? ROSE : "transparent") + ';color:' + (on ? "#fff" : MUTE) + ';border:1px solid ' + (on ? ROSE : LINE) + '">' + WEEKDAY_LABEL[d] + '</button>';
+    }).join("");
+    var hairOilSection = section("Hair-oil schedule", null,
+      '<div class="rounded-2xl p-4 border bg-white" style="border-color:' + LINE + '"><div class="flex gap-2 flex-wrap mb-3">' + dayChips + '</div>' +
+      '<p class="sans text-xs" style="color:' + MUTE + '">' + state.hairOil.days.length + 'x a week · last oiled ' + (state.hairOil.lastOiled ? esc(fmt(new Date(state.hairOil.lastOiled + "T00:00:00"))) : "—") +
+      (lastOiledDaysAgo !== null ? (" (" + lastOiledDaysAgo + " days ago)") : "") + '</p></div>');
+
+    var remindersSection = section("Reminders", null,
+      '<div class="rounded-2xl p-4 border bg-white sans" style="border-color:' + LINE + '">' +
+      '<div class="flex items-center justify-between mb-3"><span class="text-sm" style="color:' + INK + '">Notifications while app is open</span>' +
+      (state.notifSettings.enabled
+        ? '<button onclick="amdi.disableNotifications()" class="p-1.5">' + icon("bell", { size: 16, color: ROSE }) + '</button>'
+        : '<button onclick="amdi.enableNotifications()" class="p-1.5">' + icon("bellOff", { size: 16, color: MUTE }) + '</button>') +
+      '</div><label class="block text-xs mb-1" style="color:' + MUTE + '">Push-ups reminder time</label>' +
+      '<input type="time" value="' + esc(state.notifSettings.pushupsTime) + '" onchange="amdi.setPushupsTime(this.value)" class="w-full rounded-xl px-3 py-2 border text-sm" style="border-color:' + LINE + '" />' +
+      '<p class="text-xs mt-2" style="color:' + MUTE + '">Only fires while this page is open. For a true alarm, set the same time in your phone\'s clock app.</p></div>');
+
+    return streakSection + pushupsSection + physiqueSection + financeSection + hairOilSection + remindersSection;
+  }
+
+  function renderAsk() {
+    var keyBtn = '<div class="flex justify-end mb-2"><button onclick="amdi.changeApiKey()" class="sans text-xs underline" style="color:' + MUTE + '">' + (getApiKey() ? "change API key" : "set API key") + '</button></div>';
+    var messages = state.chat.length === 0
+      ? '<p class="sans text-sm italic" style="color:' + MUTE + '">Try: "give me a date idea for Saturday" or "help me write something for her letter."</p>'
+      : state.chat.map(function (m) {
+          var isUser = m.role === "user";
+          return '<div class="flex" style="justify-content:' + (isUser ? "flex-end" : "flex-start") + '">' +
+            '<div class="rounded-2xl px-4 py-2.5 sans text-sm leading-relaxed" style="max-width:85%;background:' + (isUser ? ROSE : "#fff") + ';color:' + (isUser ? "#fff" : INK) + ';border:' + (isUser ? "none" : ("1px solid " + LINE)) + '">' + esc(m.content) + '</div></div>';
+        }).join('<div style="height:.75rem"></div>');
+    var loadingRow = state.chatLoading ? '<div class="flex justify-start"><div class="sans text-xs italic px-4" style="color:' + MUTE + '">thinking…</div></div>' : "";
+    var chatForm = '<form onsubmit="event.preventDefault(); amdi.sendChat()" class="flex gap-2 sticky bottom-4">' +
+      '<input id="chatInput" placeholder="Ask something…" class="flex-1 rounded-xl px-4 py-2.5 border outline-none sans text-sm" style="border-color:' + LINE + ';background:#fff;color:' + INK + '" />' +
+      '<button type="submit"' + (state.chatLoading ? " disabled" : "") + ' class="rounded-xl px-4" style="background:' + ROSE + ';color:#fff;opacity:' + (state.chatLoading ? 0.5 : 1) + ';display:flex;align-items:center;justify-content:center;">' + icon("plus", { size: 18, color: "#fff" }) + '</button></form>';
+    return section("Ask AMDI", "Date ideas, gift ideas, help with words — grounded in what you've saved",
+      keyBtn + '<div class="space-y-3 mb-4">' + messages + loadingRow + '</div>' + chatForm);
+  }
+
+  var TAB_RENDERERS = { today: renderToday, cycle: renderCycle, wishlist: renderWishlist, dates: renderDates, notes: renderNotes, promises: renderPromises, letters: renderLetters, growth: renderGrowth, ask: renderAsk };
+
+  function renderNav() {
+    var items = TABS.map(function (t) {
+      var active = state.tab === t.id;
+      return '<button onclick="amdi.setTab(\'' + t.id + '\')" class="flex flex-col items-center gap-0.5 py-1.5 rounded-xl sans" style="background:' + (active ? BLUSH : "transparent") + '">' +
+        icon(t.icon, { size: 16, color: active ? ROSE : MUTE }) +
+        '<span class="text-[9px]" style="color:' + (active ? ROSE : MUTE) + '">' + t.label + '</span></button>';
+    }).join("");
+    return '<div class="fixed bottom-0 left-0 right-0 border-t bg-white/95 backdrop-blur px-2 py-2" style="border-color:' + LINE + '"><div class="grid grid-cols-5 gap-1">' + items + '</div></div>';
+  }
+
+  function render() {
+    var root = document.getElementById("root");
+    if (!state.loaded) {
+      root.innerHTML = '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;">' + icon("heart", { size: 32, color: ROSE, fill: "none", style: "" }).replace('style="', 'class="animate-pulse" style="') + '</div>';
+      return;
+    }
+    var header = '<div class="px-5 pt-8 pb-6 text-center" style="background:linear-gradient(180deg,' + BLUSH + ',' + CREAM + ')">' +
+      '<div class="flex items-center justify-center gap-2 mb-1"><span style="width:16px;height:1px;background:' + GOLD + '"></span>' +
+      icon("heart", { size: 13, color: ROSE, fill: ROSE }) +
+      '<span style="width:16px;height:1px;background:' + GOLD + '"></span></div>' +
+      '<h1 class="amdi-script text-4xl mt-1" style="color:' + ROSE + '">Amarachi &amp; Divine</h1>' +
+      '<p class="sans text-[11px] mt-1" style="color:' + MUTE + ';letter-spacing:.3em;">AMDI</p></div>';
+
+    var body = '<div class="px-5">' + (TAB_RENDERERS[state.tab] ? TAB_RENDERERS[state.tab]() : "") + '</div>';
+
+    root.innerHTML = '<div class="min-h-screen pb-28" style="background:' + CREAM + '">' + header + body + '</div>' + renderNav();
+  }
+
+  // ---------- boot ----------
+  var all = loadAll();
+  if (all.completions) state.completions = all.completions;
+  if (all.cycle) state.cycle = all.cycle;
+  if (all.wishlist) state.wishlist = all.wishlist;
+  if (all.dates) state.dates = all.dates;
+  if (all.notes) state.notes = all.notes;
+  if (all.promises) state.promises = all.promises;
+  if (all.letters) state.letters = all.letters;
+  if (all.growth) state.growth = Object.assign({}, state.growth, all.growth);
+  if (all.hairOil) state.hairOil = all.hairOil;
+  if (all.notifSettings) state.notifSettings = all.notifSettings;
+  state.loaded = true;
+  armNotifTimer();
+  render();
+})();
+</script>
+</body>
+</html>
